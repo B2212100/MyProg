@@ -1,6 +1,6 @@
 package com.example.linebot;
 
-import com.example.linebot.replier.Follow;
+import com.example.linebot.replier.*;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
@@ -11,13 +11,10 @@ import org.slf4j.LoggerFactory;
 // 追加 (Parrotクラス作成)
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.MessageEvent;
-import com.example.linebot.replier.Parrot;
 
 // 追加 (Greetクラス作成)
-import com.example.linebot.replier.Greet;
 
 // 追加 (Omikujiクラス作成)
-import com.example.linebot.replier.Omikuji;
 
 // 追加 (画像のメッセージイベントに対応)
 import com.linecorp.bot.client.LineBlobClient;
@@ -36,13 +33,11 @@ import java.util.concurrent.ExecutionException;
 
 // ユーザの回答に対応
 import com.linecorp.bot.model.event.PostbackEvent;
-import com.example.linebot.replier.DialogAnswer;
 
 // BubbleSampleクラスを作成
-import com.example.linebot.replier.BubbleSample;
 
 // CarouselSampleクラスを作成
-import com.example.linebot.replier.CarouselSample;
+
 
 @LineMessageHandler
 public class Callback {
@@ -75,6 +70,17 @@ public class Callback {
             case "カルーセル":
                 CarouselSample carouselSample = new CarouselSample();
                 return carouselSample.reply();
+
+            // 新機能のクラス(ListSample)へ移動
+            case "リスト":
+                ListSample listSample = new ListSample();
+                return listSample.reply();
+
+            case "一覧":
+                WordList wordList = new WordList();
+                return wordList.reply();
+
+
             default:
                 Parrot parrot = new Parrot(event);
                 return parrot.reply();
