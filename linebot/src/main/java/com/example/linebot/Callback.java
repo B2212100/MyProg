@@ -1,5 +1,6 @@
 package com.example.linebot;
 
+import com.example.linebot.replier.ListSample;
 import com.example.linebot.replier.*;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.message.Message;
@@ -71,19 +72,22 @@ public class Callback {
                 CarouselSample carouselSample = new CarouselSample();
                 return carouselSample.reply();
 
-            // 新機能のクラス(ListSample)へ移動
+            // 以下が新機能
             case "リスト":
                 ListSample listSample = new ListSample();
                 return listSample.reply();
 
-            case "一覧":
+            case "単語一覧":
                 WordList wordList = new WordList();
                 return wordList.reply();
 
-
             default:
-                Parrot parrot = new Parrot(event);
-                return parrot.reply();
+                WordList wordList1 = new WordList();
+                return wordList1.meanReply(text);
+
+                // オウム返しとの併用は難しい
+//                Parrot parrot = new Parrot(event);
+//                return parrot.reply();
         }
     }
 

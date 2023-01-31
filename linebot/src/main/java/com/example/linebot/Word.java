@@ -3,12 +3,11 @@ package com.example.linebot;
 import com.linecorp.bot.model.message.TextMessage;
 
 // テキストファイルから、単語の名前と意味に切り分けるクラス
-// また、それらを格納    List?   →   それはやめるかも
 public class Word {
     private String word;
     private String mean;
 
-    // コンストラクタ
+    // コンストラクタ  テキストファイルの切り分け(単語の名前と意味)を行う
     public Word(String arg) {
         if (arg == null) {
             throw new RuntimeException();
@@ -19,20 +18,13 @@ public class Word {
         this.mean = splitted[1];
     }
 
+    // ゲッター     単語と意味を返す
     public String getWord() {
         return this.word;
     }
 
-    // 単語名を表示するメソッド
-    public void wordPrint() {
-        String message = "「 " + this.word + " 」";   // 単語名であることを明記するため「」形式
-        new TextMessage(message);
-        return;
+    public String getMean() {
+        return this.mean;
     }
 
-    // 単語の意味(mean)を表示するメソッド
-    public void meanPrint() {
-        new TextMessage(this.mean);
-        return;
-    }
 }
