@@ -10,8 +10,15 @@ import org.apache.wicket.markup.html.form.TextField;
 
 import org.apache.wicket.model.Model;
 
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import com.example.wsbp.service.IUserService;
+
 @MountPath("UserMaker")
 public class UserMakerPage extends WebPage {
+
+    //IUserService を IoC/DI する
+    @SpringBean
+    private IUserService userService;
 
     public UserMakerPage() {
         /**
@@ -27,7 +34,7 @@ public class UserMakerPage extends WebPage {
         var userPassModel = Model.of("");
 
         // 配置したFormコンポーネントを匿名クラス化して処理を上書きする
-        var userInfoForm = new Form<>("userInfo") {
+        Form<Void> userInfoForm = new Form<Void>("userInfo") {
             @Override
             protected void onSubmit() {
                 var userName = userNameModel.getObject();
@@ -37,7 +44,8 @@ public class UserMakerPage extends WebPage {
                         + ","
                         + userPass;
                 System.out.println(msg);
-                // この1行を追加
+                // IoC/DI した userService のメソッドを呼び出す
+                userService.registerUser(userName, userPass);
                 setResponsePage(new UserMakerCompPage(userNameModel));
             }
         };
