@@ -10,6 +10,8 @@ import org.apache.wicket.model.Model;
 import com.example.wsbp.service.ISampleService;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+
 @WicketHomePage
 @MountPath("Home")
 public class HomePage extends WebPage {
@@ -47,6 +49,12 @@ public class HomePage extends WebPage {
         var randModel = Model.of(service.makeRandInt());
         var randLabel = new Label("rand", randModel);
         add(randLabel);
+
+        /**
+         * 動作確認3. WebPage間の移動
+         */
+        var toUserMakerLink = new BookmarkablePageLink<>("toUserMaker", UserMakerPage.class);
+        add(toUserMakerLink);
     }
 
 }
